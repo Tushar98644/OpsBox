@@ -1,5 +1,11 @@
+'use client'
+import dynamic from 'next/dynamic';
+
 import { WebEditor } from "@/components/editor";
-import { PseudoTerminal } from "@/components/terminal";
+
+const PseudoTerminal = dynamic(
+    async () => (await import('@/components/terminal')).PseudoTerminal, { ssr: false }
+);
 
 const Playground = () => {
     return (
