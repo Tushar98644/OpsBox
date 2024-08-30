@@ -21,6 +21,7 @@ export const PseudoTerminal = () => {
                 },
                 scrollback: 1000,
             });
+            
             const fitAddon = new FitAddon();
 
             if (terminalRef.current) {
