@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react';
 
 interface LocalStorageProps<T> {
-  key: string
-  defaultValue: T
+  key: string;
+  defaultValue: T;
 }
 
 export default function useLocalStorage<T>({
@@ -10,13 +10,21 @@ export default function useLocalStorage<T>({
   defaultValue,
 }: LocalStorageProps<T>) {
   const [value, setValue] = useState<T>(() => {
-    const storedValue = localStorage.getItem(key)
-    return storedValue !== null ? (JSON.parse(storedValue) as T) : defaultValue
-  })
+    // Ensure that this runs only on the client side
+    if (typeof window === 'undefined') {
+      return defaultValue;
+    }
+    
+    const storedValue = window.localStorage.getItem(key);
+    return storedValue !== null ? (JSON.parse(storedValue) as T) : defaultValue;
+  });
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value))
-  }, [value, key])
+    // Store the value in localStorage only on the client side
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    }
+  }, [key, value]);
 
-  return [value, setValue] as const
+  return [value, setValue] as const;
 }
