@@ -30,7 +30,7 @@ export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="">
+    <header>
       <nav
         className="flex items-center justify-between p-6 lg:px-8"
         aria-label="Global"
@@ -59,7 +59,7 @@ export const Header = () => {
               key={item.name}
               href={item.href}
               target={item.target}
-              className="text-sm font-semibold leading-6 text-white"
+              className="text-sm font-semibold leading-6 text-white cursor-pointer hover:text-gray-300"
             >
               {item.name}
             </Link>
@@ -76,9 +76,9 @@ export const Header = () => {
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
           <div className="flex items-center justify-between">
             <Link href="/" className="-m-1.5 p-1.5">
-              <span className="sr-only">Code Editor</span>
+              <span className="sr-only">Slate</span>
               <h1 className="text-2xl font-bold tracking-tight text-gray-50">
-                Code Editor
+                Slate
               </h1>
             </Link>
             <button

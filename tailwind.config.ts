@@ -1,13 +1,14 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
+import colors from "tailwindcss/colors";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -19,18 +20,33 @@ const config = {
     },
     extend: {
       colors: {
+        light: "var(--light)",
+        dark: "var(--dark)",
+        darker: "var(--darker)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "var(--color-primary)",
+          50: "var(--color-primary-50)",
+          100: "var(--color-primary-100)",
+          light: "var(--color-primary-light)",
+          lighter: "var(--color-primary-lighter)",
+          dark: "var(--color-primary-dark)",
+          darker: "var(--color-primary-darker)",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: colors.fuchsia[600],
+          50: colors.fuchsia[50],
+          100: colors.fuchsia[100],
+          light: colors.fuchsia[500],
+          lighter: colors.fuchsia[400],
+          dark: colors.fuchsia[700],
+          darker: colors.fuchsia[800],
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -74,7 +90,14 @@ const config = {
       },
     },
   },
+  variants: {
+    extend: {
+      backgroundColor: ["checked", "disabled"],
+      opacity: ["dark"],
+      overflow: ["hover"],
+    },
+  },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
