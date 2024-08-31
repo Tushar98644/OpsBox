@@ -44,7 +44,7 @@ export const Navbar = ({ className, links, ...props }: TopNavProps) => {
 
       <nav
         className={cn(
-          'hidden items-center space-x-4 md:flex lg:space-x-6',
+          'hidden ml-20 items-center space-x-4 md:flex md:space-x-8',
           className
         )}
         {...props}
