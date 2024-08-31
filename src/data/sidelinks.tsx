@@ -12,11 +12,11 @@ export interface NavLink {
   icon: JSX.Element
 }
 
-// export interface SideLink extends NavLink {
-//   sub?: NavLink[]
-// }
+export interface SideLink extends NavLink {
+  sub?: NavLink[]
+}
 
-export const sidelinks = [
+export const SideLinks = [
   {
     title: 'Home',
     label: '',

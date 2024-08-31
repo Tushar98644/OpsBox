@@ -1,5 +1,5 @@
 import { IconChevronDown } from '@tabler/icons-react'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/button'
 import {
   Collapsible,
   CollapsibleContent,
@@ -20,9 +20,9 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { cn } from '@/lib/utils'
-import Link from 'next/link'
 import useCheckActiveNav from '@/hooks/use-check-active-nav'
 import { SideLink } from '@/data/sidelinks'
+import Link from 'next/link'
 
 interface NavProps extends React.HTMLAttributes<HTMLDivElement> {
   isCollapsed: boolean
@@ -122,7 +122,7 @@ function NavLinkDropdown({ title, icon, label, sub, closeNav }: NavLinkProps) {
   const isChildActive = !!sub?.find((s) => checkActiveNav(s.href))
 
   return (
-    <Collapsible>
+    <Collapsible defaultOpen={isChildActive}>
       <CollapsibleTrigger
         className={cn(
           buttonVariants({ variant: 'ghost', size: 'sm' }),
@@ -226,7 +226,7 @@ function NavLinkIconDropdown({ title, icon, label, sub }: NavLinkProps) {
         {sub!.map(({ title, icon, label, href }) => (
           <DropdownMenuItem key={`${title}-${href}`} asChild>
             <Link
-                href={href}
+              href={href}
               className={`${checkActiveNav(href) ? 'bg-secondary' : ''}`}
             >
               {icon} <span className='ml-2 max-w-52 text-wrap'>{title}</span>

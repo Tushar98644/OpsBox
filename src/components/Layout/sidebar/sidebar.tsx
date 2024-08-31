@@ -4,7 +4,7 @@ import { IconChevronsLeft, IconMenu2, IconX } from '@tabler/icons-react';
 import { Button } from '@/components/button';
 import Nav from './side-nav';
 import { cn } from '@/lib/utils';
-import { sidelinks } from '@/data/sidelinks';
+import { SideLinks } from '@/data/sidelinks';
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -60,7 +60,7 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
         )}
         closeNav={() => setNavOpened(false)}
         isCollapsed={isCollapsed}
-        links={sidelinks}
+        links={SideLinks}
       />
 
       <Button

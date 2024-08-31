@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Layout from "@/components/Layout/layout";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,10 +17,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
-        <body className={inter.className}>{children}</body>
-      </ThemeProvider>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
+          <body className={inter.className}>
+            <header>
+              <SignedOut>
+              </SignedOut>
+              <SignedIn>
+              </SignedIn>
+            </header>
+            <main>
+              {children}
+            </main>
+          </body>
+        </ThemeProvider>
+      </html>
+    </ClerkProvider>
   );
 }

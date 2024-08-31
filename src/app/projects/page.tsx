@@ -4,7 +4,7 @@ import Layout from "@/components/Layout/layout";
 const ProjectList = () => {
     return (
         <Layout>
-            <div className="flex p-16">
+            <div className="p-12">
                 <ProjectCard />
             </div>
         </Layout>

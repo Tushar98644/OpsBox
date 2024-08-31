@@ -1,10 +1,11 @@
-import Sidebar from "@/components/Layout/navbar/sidebar/sidebar";
 import Layout from "@/components/Layout/layout";
 
 const Dashboard = () => {
     return (
         <Layout>
-            hell
+            <div className="flex h-screen items-center justify-center">
+                dashboard
+            </div>
         </Layout>
     );
 }
