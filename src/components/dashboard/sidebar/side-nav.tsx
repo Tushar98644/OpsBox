@@ -117,6 +117,8 @@ function NavLink({
 function NavLinkDropdown({ title, icon, label, sub, closeNav }: NavLinkProps) {
   const { checkActiveNav } = useCheckActiveNav()
 
+  /* Open collapsible by default
+   * if one of child element is active */
   const isChildActive = !!sub?.find((s) => checkActiveNav(s.href))
 
   return (

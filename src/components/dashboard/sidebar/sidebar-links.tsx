@@ -17,7 +17,7 @@ export default function Sidebar() {
   return (
     <aside
       className={cn(
-        `w-full border-r-2 transition-[width] md:bottom-0 md:right-auto h-screen`,
+        `fixed left-0 right-0 top-0 z-50 w-full border-r-2 transition-[width] md:bottom-0 md:right-auto h-screen`,
         collapsed ? 'md:w-14' : 'md:w-64'
       )}
     >
@@ -63,12 +63,11 @@ export default function Sidebar() {
         links={sidelinks}
       />
 
-      {/* Toggle Button for Collapsing Sidebar */}
       <Button
         onClick={() => setCollapsed((prev) => !prev)}
         size='icon'
         variant='outline'
-        className='absolute -right-5 top-1/2 z-50 hidden rounded-full md:inline-flex'
+        className='absolute -right-5 top-1/3 z-50 hidden rounded-full md:flex'
       >
         <IconChevronsLeft
           stroke={1.5}
