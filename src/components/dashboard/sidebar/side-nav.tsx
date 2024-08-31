@@ -1,96 +1,238 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable jsx-a11y/alt-text */
-'use client'
-import { BellIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
-import { FiSettings } from "react-icons/fi";
-import { GoProject } from "react-icons/go";
+import { IconChevronDown } from '@tabler/icons-react'
+import { Button, buttonVariants } from '@/components/ui/button'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
+import { cn } from '@/lib/utils'
+import Link from 'next/link'
+import useCheckActiveNav from '@/hooks/use-check-active-nav'
+import { SideLink } from '@/data/sidelinks'
 
-export const SideNav = () => {
-    const [open, setOpen] = useState(true);
-    const options = [
-        { title: "Notifications", component: <BellIcon className="size-6" /> },
-        { title: "Projects", component: <GoProject className="size-6" /> },
-        { title: "Settings", component: <FiSettings className="size-6" /> },
-    ];
+interface NavProps extends React.HTMLAttributes<HTMLDivElement> {
+  isCollapsed: boolean
+  links: SideLink[]
+  closeNav: () => void
+}
 
-    return (
-        <aside
-            className="dark col-span-2 fixed h-screen inset-y-0 z-10 flex flex-shrink-0 overflow-hidden bg-white border-r dark:border-indigo-800 dark:bg-darker focus:outline-none"
+export default function Nav({
+  links,
+  isCollapsed,
+  className,
+  closeNav,
+}: NavProps) {
+  const renderLink = ({ sub, ...rest }: SideLink) => {
+    const key = `${rest.title}-${rest.href}`
+    if (isCollapsed && sub)
+      return (
+        <NavLinkIconDropdown
+          {...rest}
+          sub={sub}
+          key={key}
+          closeNav={closeNav}
+        />
+      )
+
+    if (isCollapsed)
+      return <NavLinkIcon {...rest} key={key} closeNav={closeNav} />
+
+    if (sub)
+      return (
+        <NavLinkDropdown {...rest} sub={sub} key={key} closeNav={closeNav} />
+      )
+
+    return <NavLink {...rest} key={key} closeNav={closeNav} />
+  }
+  return (
+    <div
+      data-collapsed={isCollapsed}
+      className={cn(
+        'group border-b bg-background py-2 transition-[max-height,padding] duration-500 data-[collapsed=true]:py-2 md:border-none',
+        className
+      )}
+    >
+      <TooltipProvider delayDuration={0}>
+        <nav className='grid gap-1 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2'>
+          {links.map(renderLink)}
+        </nav>
+      </TooltipProvider>
+    </div>
+  )
+}
+
+interface NavLinkProps extends SideLink {
+  subLink?: boolean
+  closeNav: () => void
+}
+
+function NavLink({
+  title,
+  icon,
+  label,
+  href,
+  closeNav,
+  subLink = false,
+}: NavLinkProps) {
+  const { checkActiveNav } = useCheckActiveNav()
+  return (
+    <Link
+      href={href}
+      onClick={closeNav}
+      className={cn(
+        buttonVariants({
+          variant: checkActiveNav(href) ? 'secondary' : 'ghost',
+          size: 'sm',
+        }),
+        'h-12 justify-start text-wrap rounded-none px-6',
+        subLink && 'h-10 w-full border-l border-l-slate-500 px-2'
+      )}
+      aria-current={checkActiveNav(href) ? 'page' : undefined}
+    >
+      <div className='mr-2'>{icon}</div>
+      {title}
+      {label && (
+        <div className='ml-2 rounded-lg bg-primary px-1 text-[0.625rem] text-primary-foreground'>
+          {label}
+        </div>
+      )}
+    </Link>
+  )
+}
+
+function NavLinkDropdown({ title, icon, label, sub, closeNav }: NavLinkProps) {
+  const { checkActiveNav } = useCheckActiveNav()
+
+  const isChildActive = !!sub?.find((s) => checkActiveNav(s.href))
+
+  return (
+    <Collapsible>
+      <CollapsibleTrigger
+        className={cn(
+          buttonVariants({ variant: 'ghost', size: 'sm' }),
+          'group h-12 w-full justify-start rounded-none px-6'
+        )}
+      >
+        <div className='mr-2'>{icon}</div>
+        {title}
+        {label && (
+          <div className='ml-2 rounded-lg bg-primary px-1 text-[0.625rem] text-primary-foreground'>
+            {label}
+          </div>
+        )}
+        <span
+          className={cn(
+            'ml-auto transition-all group-data-[state="open"]:-rotate-180'
+          )}
         >
-            <div className="flex flex-col flex-shrink-0 h-full px-2 py-4 border-r dark:border-indigo-800">
-                <div className="project-name flex-shrink-0">
-                    <a
-                        href="#"
-                        className="dark inline-block text-xl font-bold tracking-wider text-indigo-700 dark:text-light"
-                    >
-                        Slate
-                    </a>
-                </div>
+          <IconChevronDown stroke={1} />
+        </span>
+      </CollapsibleTrigger>
+      <CollapsibleContent className='collapsibleDropdown' asChild>
+        <ul>
+          {sub!.map((sublink) => (
+            <li key={sublink.title} className='my-1 ml-8'>
+              <NavLink {...sublink} subLink closeNav={closeNav} />
+            </li>
+          ))}
+        </ul>
+      </CollapsibleContent>
+    </Collapsible>
+  )
+}
 
-                <div className="utility-options dark flex flex-col items-center justify-center flex-1 space-y-4">
-                    {
-                        options.map((option, index) => (
-                            <button
-                                key={index}
-                                className="dark flex items-center justify-center w-12 h-12 text-indigo-400 transition-colors duration-200 rounded-full bg-indigo-50 hover:text-indigo-600 hover:bg-indigo-100 dark:hover:text-light dark:hover:bg-indigo-700 dark:bg-dark focus:outline-none focus:bg-indigo-100 dark:focus:bg-indigo-700 focus:ring-indigo-800"
-                            >
-                                <span className="sr-only">{option.title}</span>
-                                <div className="dark:hover-indigo-400">
-                                    {option.component}
-                                </div>
-                            </button>
-                        ))
-                    }
-                </div>
+function NavLinkIcon({ title, icon, label, href }: NavLinkProps) {
+  const { checkActiveNav } = useCheckActiveNav()
+  return (
+    <Tooltip delayDuration={0}>
+      <TooltipTrigger asChild>
+        <Link
+          href={href}
+          className={cn(
+            buttonVariants({
+              variant: checkActiveNav(href) ? 'secondary' : 'ghost',
+              size: 'icon',
+            }),
+            'h-12 w-12'
+          )}
+        >
+          {icon}
+          <span className='sr-only'>{title}</span>
+        </Link>
+      </TooltipTrigger>
+      <TooltipContent side='right' className='flex items-center gap-4'>
+        {title}
+        {label && (
+          <span className='ml-auto text-muted-foreground'>{label}</span>
+        )}
+      </TooltipContent>
+    </Tooltip>
+  )
+}
 
-                <div className="user flex items-center justify-center flex-shrink-0">
-                    <div className="" x-data="{ open: false }">
-                        <button
-                            type="button"
-                            aria-haspopup="true"
-                            className="block transition-opacity duration-200 rounded-full dark:opacity-75 dark:hover:opacity-100 focus:outline-none focus:ring dark:focus:opacity-100"
-                        >
-                            <span className="sr-only">User menu</span>
-                            <img
-                                className="w-10 h-10 rounded-full"
-                                src="https://avatars.githubusercontent.com/u/57622665?s=460&u=8f581f4c4acd4c18c33a87b3e6476112325e8b38&v=4"
-                                alt="Ahmed Kamel"
-                            />
-                        </button>
+function NavLinkIconDropdown({ title, icon, label, sub }: NavLinkProps) {
+  const { checkActiveNav } = useCheckActiveNav()
 
-                        <div
-                            className="absolute w-56 py-1 mb-4 bg-white rounded-md shadow-lg min-w-max left-5 bottom-full ring-1 ring-black ring-opacity-5 dark:bg-dark focus:outline-none"
-                            tabIndex={-1}
-                            role="menu"
-                            aria-orientation="vertical"
-                            aria-label="User menu"
-                        >
-                            <a
-                                href="#"
-                                role="menuitem"
-                                className="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-indigo-600"
-                            >
-                                Your Profile
-                            </a>
-                            <a
-                                href="#"
-                                role="menuitem"
-                                className="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-indigo-600"
-                            >
-                                Settings
-                            </a>
-                            <a
-                                href="#"
-                                role="menuitem"
-                                className="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-indigo-600"
-                            >
-                                Logout
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </aside>
-    );
-};
+  /* Open collapsible by default
+   * if one of child element is active */
+  const isChildActive = !!sub?.find((s) => checkActiveNav(s.href))
+
+  return (
+    <DropdownMenu>
+      <Tooltip delayDuration={0}>
+        <TooltipTrigger asChild>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant={isChildActive ? 'secondary' : 'ghost'}
+              size='icon'
+              className='h-12 w-12'
+            >
+              {icon}
+            </Button>
+          </DropdownMenuTrigger>
+        </TooltipTrigger>
+        <TooltipContent side='right' className='flex items-center gap-4'>
+          {title}{' '}
+          {label && (
+            <span className='ml-auto text-muted-foreground'>{label}</span>
+          )}
+          <IconChevronDown
+            size={18}
+            className='-rotate-90 text-muted-foreground'
+          />
+        </TooltipContent>
+      </Tooltip>
+      <DropdownMenuContent side='right' align='start' sideOffset={4}>
+        <DropdownMenuLabel>
+          {title} {label ? `(${label})` : ''}
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        {sub!.map(({ title, icon, label, href }) => (
+          <DropdownMenuItem key={`${title}-${href}`} asChild>
+            <Link
+                href={href}
+              className={`${checkActiveNav(href) ? 'bg-secondary' : ''}`}
+            >
+              {icon} <span className='ml-2 max-w-52 text-wrap'>{title}</span>
+              {label && <span className='ml-auto text-xs'>{label}</span>}
+            </Link>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}

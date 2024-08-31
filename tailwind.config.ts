@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import colors from "tailwindcss/colors";
 
 const config = {
   darkMode: ["class"],
@@ -20,9 +19,6 @@ const config = {
     },
     extend: {
       colors: {
-        light: "var(--light)",
-        dark: "var(--dark)",
-        darker: "var(--darker)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -30,23 +26,11 @@ const config = {
         foreground: "hsl(var(--foreground))",
         primary: {
           foreground: "hsl(var(--primary-foreground))",
-          DEFAULT: "var(--color-primary)",
-          50: "var(--color-primary-50)",
-          100: "var(--color-primary-100)",
-          light: "var(--color-primary-light)",
-          lighter: "var(--color-primary-lighter)",
-          dark: "var(--color-primary-dark)",
-          darker: "var(--color-primary-darker)",
+          DEFAULT: "hsl(var(--primary))",
         },
         secondary: {
           foreground: "hsl(var(--secondary-foreground))",
-          DEFAULT: colors.fuchsia[600],
-          50: colors.fuchsia[50],
-          100: colors.fuchsia[100],
-          light: colors.fuchsia[500],
-          lighter: colors.fuchsia[400],
-          dark: colors.fuchsia[700],
-          darker: colors.fuchsia[800],
+          DEFAULT: "hsl(var(--secondary))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -88,13 +72,6 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-    },
-  },
-  variants: {
-    extend: {
-      backgroundColor: ["checked", "disabled"],
-      opacity: ["dark"],
-      overflow: ["hover"],
     },
   },
   plugins: [require("tailwindcss-animate")],
