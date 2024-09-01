@@ -19,10 +19,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useRouter } from "next/navigation"
 
 export const ProjectForm = () => {
+  const router = useRouter();
   const startEditor = () => {
-    alert("Starting editor...")
+    alert("Starting editor...");
+    router.push("/playground");
   } 
 
   return (
