@@ -1,3 +1,4 @@
+'use client'
 import * as React from "react"
 
 import { Button } from "@/components/ui/button"
@@ -20,6 +21,10 @@ import {
 } from "@/components/ui/select"
 
 export const ProjectForm = () => {
+  const startEditor = () => {
+    alert("Starting editor...")
+  } 
+
   return (
     <Card className="w-[450px]">
       <CardHeader>
@@ -52,7 +57,7 @@ export const ProjectForm = () => {
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="outline">Cancel</Button>
-        <Button>Start</Button>
+        <Button onClick={startEditor}>Start</Button>
       </CardFooter>
     </Card>
   )

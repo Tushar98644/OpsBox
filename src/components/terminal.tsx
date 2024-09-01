@@ -16,7 +16,7 @@ export const PseudoTerminal = () => {
                 fontSize: 15,
                 fontFamily: 'Menlo, Monaco, "Courier New", monospace',
                 theme: {
-                    background: '#1e1e1e',
+                    background: '#000000',
                     foreground: '#ffffff',
                 },
                 scrollback: 1000,
@@ -60,6 +60,6 @@ export const PseudoTerminal = () => {
     }, []);
 
     return (
-        <div ref={terminalRef} />
+        <div ref={terminalRef} className="max-h-full"/>
     );
 }
