@@ -1,17 +1,17 @@
 import { useContext } from "react";
 
-import { projectDetailContext } from "@/context/projectDetail.context";
+// import { projectDetailContext } from "@/context/projectDetail.context";
 
 const useProjectDetailContext = () => {
-  const context = useContext(projectDetailContext);
+  // const context = useContext(projectDetailContext);
 
-  if (!context) {
-    throw new Error(
-      "useProjectDetailContext must be used within a ProjectDetailProvider"
-    );
-  }
+  // if (!context) {
+  //   throw new Error(
+  //     "useProjectDetailContext must be used within a ProjectDetailProvider"
+  //   );
+  // }
 
-  return context;
+  // return context;
 };
 
 export default useProjectDetailContext;

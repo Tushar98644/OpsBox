@@ -1,7 +1,6 @@
 'use client'
 import dynamic from 'next/dynamic';
 import { ProjectEditor } from '@/components/editor/editor';
-// import { Explorer } from '@/components/editor/components/explorer';
 import { FileTree } from '@/components/editor/components/file-tree';
 import { Directory, File, Type } from '@/utils/file-manager';
 
@@ -43,7 +42,6 @@ let rootDir: Directory = {
 const Playground = () => {
     return (
         <div className='flex flex-row w-screen h-screen'>
-            {/* File tree taking 1/3 of the width */}
             <div className='file-tree w-1/5 h-full'>
                 <FileTree 
                     rootDir={rootDir} 
@@ -53,13 +51,10 @@ const Playground = () => {
                     }} 
                 />
             </div>
-            {/* Editor and Terminal taking 2/3 of the width */}
             <div className='terminal-editor flex flex-col w-full h-full'>
-                {/* Editor taking 2/3 of the height */}
                 <div className='editor h-2/3'>
                     <ProjectEditor />
                 </div>
-                {/* Terminal taking 1/3 of the height */}
                 <div className='terminal h-1/3'>
                     <PseudoTerminal />
                 </div>

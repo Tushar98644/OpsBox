@@ -1,16 +1,16 @@
 import { useContext } from "react";
 
 // context
-import { ToastContext } from "@/context/toast.context";
+// import { ToastContext } from "@/context/toast.context";
 
 const useToast = () => {
-  const context = useContext(ToastContext);
+  // const context = useContext(ToastContext);
 
-  if (!context) {
-    throw new Error("useToast must be used within a ToastProvider");
-  }
+  // if (!context) {
+  //   throw new Error("useToast must be used within a ToastProvider");
+  // }
 
-  return context;
+  // return context;
 };
 
 export default useToast;
