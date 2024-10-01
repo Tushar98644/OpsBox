@@ -1,3 +1,4 @@
+'use client'
 import { useState, useEffect } from 'react';
 
 interface LocalStorageProps<T> {
@@ -10,17 +11,15 @@ export default function useLocalStorage<T>({
   defaultValue,
 }: LocalStorageProps<T>) {
   const [value, setValue] = useState<T>(() => {
-    // Ensure that this runs only on the client side
     if (typeof window === 'undefined') {
       return defaultValue;
     }
     
-    const storedValue = window.localStorage.getItem(key);
+    const storedValue = window?.localStorage?.getItem(key);
     return storedValue !== null ? (JSON.parse(storedValue) as T) : defaultValue;
   });
 
   useEffect(() => {
-    // Store the value in localStorage only on the client side
     if (typeof window !== 'undefined') {
       window.localStorage.setItem(key, JSON.stringify(value));
     }
