@@ -6,7 +6,7 @@ import { Navbar } from "./navbar/navbar";
 import { Navlinks } from "@/data/navlinks";
 import { ThemeSwitch } from "../theme/theme-switch";
 import { Search } from "../dashboard/search/search";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton } from "./user-button";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     const [isCollapsed, setIsCollapsed] = useIsCollapsed();

@@ -1,10 +1,13 @@
 'use client'
 import Link from "next/link";
 import Image from "next/image";
+import { signIn, useSession } from "next-auth/react";
 
 import { Header } from "@/components/landing/header";
 
 const Landing = () => {
+  const { data: session } = useSession();
+
   return (
     <div className="bg-slate-900">
       <div className="header relative z-10">
@@ -27,6 +30,7 @@ const Landing = () => {
                 <Link
                   href="/dashboard"
                   className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
+                  onClick={()=>signIn("google")}
                 >
                   Get Started
                 </Link>
