@@ -1,5 +1,6 @@
 'use client'
 import { SessionProvider } from "next-auth/react";
+import AuthenticationGuard from "./auth-gaurd";
 
 interface Provider {
     children: React.ReactNode;
@@ -8,7 +9,9 @@ interface Provider {
 export const Provider = ({children} : Provider) => {
     return (
         <SessionProvider>
-            {children}
+            <AuthenticationGuard>
+                {children}
+            </AuthenticationGuard>
         </SessionProvider>
     )
 }

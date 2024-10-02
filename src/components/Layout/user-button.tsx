@@ -2,7 +2,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 
@@ -110,9 +110,9 @@ export const UserButton = () => {
       ) : (
         <button
           className='rounded-md border border-stone-300 px-3 py-1 text-sm dark:border-stone-600'
-          onClick={() => signIn()}
+          onClick={() => signOut()}
         >
-          Sign In
+          Sign out
         </button>
       )}
     </>
