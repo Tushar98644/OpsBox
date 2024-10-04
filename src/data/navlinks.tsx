@@ -22,7 +22,7 @@ export const Navlinks: TopNavLink[] = [
   },
   {
     title: 'Settings',
-    href: 'dashboard/settings',
+    href: '/settings',
     isActive: false,
   },
 ]

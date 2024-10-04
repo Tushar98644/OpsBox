@@ -17,11 +17,11 @@ export default function AuthenticationGuard({
 
     useEffect(() => {
         if (status === "authenticated") {
-            if (pathname === "/") {
+            if (pathname === "/login") {
                 router.back();
             }
         } else if (status === "unauthenticated") {
-            if (pathname !== "/") {
+            if (pathname !== "/" && pathname !== "/login") {
                 router.push("/");
             }
         }
