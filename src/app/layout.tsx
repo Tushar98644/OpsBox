@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-// import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Provider } from "@/providers/provider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -13,18 +12,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <Provider>
-      <html lang="en">
-        {/* <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'> */}
-        <body className={inter.className}>
-          <header>
-          </header>
-          <main>
+    <html lang="en">
+      <body>
+        <main>
+          <Provider>
             {children}
-          </main>
-        </body>
-        {/* </ThemeProvider> */}
-      </html>
-    </Provider>
+          </Provider>
+        </main>
+      </body>
+    </html>
   );
 }
