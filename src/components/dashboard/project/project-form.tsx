@@ -1,5 +1,6 @@
 'use client'
 import * as React from "react"
+import axios from 'axios'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -20,13 +21,47 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { useSession } from "next-auth/react"
 
 export const ProjectForm = () => {
   const router = useRouter();
+  const { data: session } = useSession();
+
+  const [title, setTitle] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [techstack, setTechstack] = useState<string>('');
+
+  const createProject = async (e: any) => {
+    try {
+      e.preventDefault();
+      const user = session?.user?.email;
+      const data = {
+        title,
+        description,
+        techstack,
+        user
+      }
+      const config = {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+
+      await axios.post('/api/projects', data, config);
+      console.log('Project created');
+
+      startEditor();
+    }
+    catch (error) {
+      console.error("Failed to create project", error);
+    }
+  };
+
   const startEditor = () => {
     alert("Starting editor...");
     router.push("/playground");
-  } 
+  }
 
   return (
     <Card className="w-[450px]">
@@ -34,16 +69,32 @@ export const ProjectForm = () => {
         <CardTitle>Create project</CardTitle>
         <CardDescription>Start your new project in one-click.</CardDescription>
       </CardHeader>
-      <CardContent>
-        <form>
+      <form onSubmit={createProject}>
+        <CardContent>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Title</Label>
-              <Input id="name" placeholder="Name of your project" />
+              <Label htmlFor="title">Title</Label>
+              <Input
+                id="title"
+                placeholder="Name of your project"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </div>
+
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="description">Description</Label>
+              <Input
+                id="description"
+                placeholder="Describe your project"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="framework">Framework</Label>
-              <Select>
+              <Select onValueChange={(value) => setTechstack(value)}>
                 <SelectTrigger id="framework">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
@@ -56,13 +107,12 @@ export const ProjectForm = () => {
               </Select>
             </div>
           </div>
-        </form>
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline">Cancel</Button>
-        <Button onClick={startEditor}>Start</Button>
-      </CardFooter>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <Button variant="outline">Cancel</Button>
+          <Button type="submit">Start</Button>
+        </CardFooter>
+      </form>
     </Card>
   )
 }
-

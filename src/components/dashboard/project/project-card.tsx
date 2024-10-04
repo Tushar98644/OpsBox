@@ -1,4 +1,4 @@
-import { BellRing, Check } from "lucide-react"
+import { BellRing, Check,Rocket,RocketIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -23,14 +23,17 @@ const notifications = [
   },
 ]
 
-type CardProps = React.ComponentProps<typeof Card>
+type CardProps = React.ComponentProps<typeof Card> & {
+  title: string;
+  description: string;
+};
 
-export const ProjectCard = ({ className, ...props }: CardProps) => {
+export const ProjectCard = ({ className,title,description, ...props }: CardProps) => {
   return (
     <Card className={cn("w-[380px]", className)} {...props}>
       <CardHeader>
-        <CardTitle>Title</CardTitle>
-        <CardDescription>Description</CardDescription>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">
         <div className=" flex items-center space-x-4 rounded-md border p-4">
@@ -66,7 +69,7 @@ export const ProjectCard = ({ className, ...props }: CardProps) => {
       </CardContent>
       <CardFooter>
         <Button className="w-full">
-          <Check className="mr-2 h-4 w-4" /> Mark all as read
+          <Rocket className="mr-2 h-4 w-4" /> Start Project
         </Button>
       </CardFooter>
     </Card>
