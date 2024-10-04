@@ -1,26 +1,26 @@
-// 'use client'
-// import { useEffect } from 'react'
-// // import useLocalStorage from './use-local-storage'
+'use client'
+import { useEffect } from 'react'
+import useLocalStorage from './use-local-storage'
 
-// export default function useIsCollapsed() {
-//   const [isCollapsed, setIsCollapsed] = useLocalStorage({
-//     key: 'collapsed-sidebar',
-//     defaultValue: false,
-//   })
+export default function useIsCollapsed() {
+  const [isCollapsed, setIsCollapsed] = useLocalStorage({
+    key: 'collapsed-sidebar',
+    defaultValue: false,
+  })
 
-//   useEffect(() => {
-//     const handleResize = () => {
-//       setIsCollapsed(window.innerWidth < 768 ? false : isCollapsed)
-//     }
+  useEffect(() => {
+    const handleResize = () => {
+      setIsCollapsed(window.innerWidth < 768 ? false : isCollapsed)
+    }
 
-//     handleResize()
+    handleResize()
 
-//     window.addEventListener('resize', handleResize)
+    window.addEventListener('resize', handleResize)
 
-//     return () => {
-//       window.removeEventListener('resize', handleResize)
-//     }
-//   }, [isCollapsed, setIsCollapsed])
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [isCollapsed, setIsCollapsed])
 
-//   return [isCollapsed, setIsCollapsed] as const
-// }
+  return [isCollapsed, setIsCollapsed] as const
+}
