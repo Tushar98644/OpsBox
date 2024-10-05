@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import { IconChevronsLeft, IconMenu2, IconX } from '@tabler/icons-react';
-import { Button } from '@/components/buttons/button';
+import { Button } from '@/components/ui/button';
 import Nav from './side-nav';
 import { cn } from '@/lib/utils';
 import { SideLinks } from '@/data/sidelinks';

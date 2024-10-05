@@ -1,5 +1,4 @@
-import { BellRing, Check,Rocket,RocketIcon } from "lucide-react"
-
+import { BellRing,Rocket } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {

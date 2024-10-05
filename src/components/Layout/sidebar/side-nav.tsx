@@ -1,5 +1,5 @@
 import { IconChevronDown } from '@tabler/icons-react'
-import { Button, buttonVariants } from '@/components/buttons/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Collapsible,
   CollapsibleContent,
