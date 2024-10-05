@@ -4,7 +4,6 @@ export const classNames = (
     return classes.filter(Boolean).join(" ");
   };
 
-
   export const getLanguageThroughExtension = (extension: string) => {
     switch (extension) {
       case "py":

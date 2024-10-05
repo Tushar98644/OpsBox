@@ -7,7 +7,7 @@ export interface TopNavLink {
 export const Navlinks: TopNavLink[] = [
   {
     title: 'Overview',
-    href: 'dashboard/overview',
+    href: '/dashboard',
     isActive: true,
   },
   {

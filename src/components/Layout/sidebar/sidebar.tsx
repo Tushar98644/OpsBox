@@ -36,8 +36,8 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
         <div className={`flex items-center ${!isCollapsed ? 'gap-2' : ''}`}>
           {!isCollapsed && (
             <div className='flex flex-col px-8 justify-end truncate'>
-              <span className='font-medium'>Slate Admin</span>
-              <span className='text-xs'>Slate</span>
+              <span className='font-medium'>ZenCode Space</span>
+              <span className='text-xs'>ZenCode</span>
             </div>
           )}
         </div>

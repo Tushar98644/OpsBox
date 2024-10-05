@@ -39,7 +39,7 @@ export const Header = () => {
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Slate</span>
             <h1 className="text-2xl font-bold tracking-tight text-gray-50">
-              Slate
+              ZenCode
             </h1>
           </Link>
         </div>

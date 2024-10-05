@@ -46,7 +46,7 @@ const Landing = () => {
                 width={1155}
                 height={600}
                 className="object-cover object-left rounded-md"
-                src="/product.png"
+                src="/product.jpg"
                 alt="Project"
               />
             </div>

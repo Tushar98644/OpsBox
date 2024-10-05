@@ -1,11 +1,10 @@
 'use client'
-import { useEffect } from 'react'
-import useLocalStorage from './use-local-storage'
+import { useEffect, useState } from 'react'
 
 export const useIsCollapsed = () => {
-  const [isCollapsed, setIsCollapsed] = useLocalStorage({
-    key: 'collapsed-sidebar',
-    defaultValue: false,
+  const [isCollapsed, setIsCollapsed] = useState(() => {
+    const storedValue = localStorage.getItem('collapsed-sidebar')
+    return storedValue ? JSON.parse(storedValue) : false
   })
 
   useEffect(() => {
@@ -20,7 +19,11 @@ export const useIsCollapsed = () => {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [isCollapsed, setIsCollapsed])
+  }, [isCollapsed])
+
+  useEffect(() => {
+    localStorage.setItem('collapsed-sidebar', JSON.stringify(isCollapsed))
+  }, [isCollapsed])
 
   return [isCollapsed, setIsCollapsed] as const
 }

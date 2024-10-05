@@ -9,7 +9,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 // hooks
 import useCtrlKeydown from "@/hooks/use-ctrl-keydown";
-import useProjectDetailContext from "@/hooks/use-project-detail";
+// import useProjectDetailContext from "@/hooks/use-project-detail";
 
 // helpers
 import { classNames } from "@/helpers/string-helper";
