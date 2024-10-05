@@ -1,7 +1,6 @@
 'use client'
-import React, { use, useEffect, useState } from "react";
 import Sidebar from "./sidebar/sidebar";
-import useIsCollapsed from '@/hooks/use-is-collapsed'
+import { useIsCollapsed } from '@/hooks/use-is-collapsed'
 import { Navbar } from "./navbar/navbar";
 import { Navlinks } from "@/data/navlinks";
 import { ThemeSwitch } from "../theme/theme-switch";
@@ -23,7 +22,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         <UserButton />
                     </div>
                 </div>
-
                 <main id='content'>
                     {children}
                 </main>
