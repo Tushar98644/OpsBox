@@ -9,19 +9,26 @@ export const useIsCollapsed = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsCollapsed(window.innerWidth < 768 ? false : isCollapsed)
+      // Collapse the sidebar if window width is less than 768px, else retain the current state from localStorage
+      if (window.innerWidth < 768) {
+        setIsCollapsed(true)
+      } else {
+        const storedValue = localStorage.getItem('collapsed-sidebar')
+        setIsCollapsed(storedValue ? JSON.parse(storedValue) : false)
+      }
     }
 
-    handleResize()
+    handleResize();
 
     window.addEventListener('resize', handleResize)
 
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [isCollapsed])
+  }, [])
 
   useEffect(() => {
+    // Update localStorage whenever isCollapsed changes
     localStorage.setItem('collapsed-sidebar', JSON.stringify(isCollapsed))
   }, [isCollapsed])
 

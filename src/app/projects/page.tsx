@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 const ProjectList = () => {
     const [projects, setProjects] = useState<Project[]>([]);
     const { data: session } = useSession();
-
+    
     const fetchProjects = async () => {
         try {
             const userEmail = session?.user?.email;
@@ -31,7 +31,7 @@ const ProjectList = () => {
     useEffect(() => {
         fetchProjects();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
+    }, []);
 
     return (
         <Layout>
@@ -41,8 +41,7 @@ const ProjectList = () => {
                         <h1 className="text-2xl font-semibold">No Projects Found</h1>
                     </div>
                 ) : (
-
-                    <div className="p-12">
+                    <div className={`p-12 grid grid-cols-3`}>
                         {projects.map((project) => (
                             <ProjectCard key={project._id} {...project} />
                         ))}
